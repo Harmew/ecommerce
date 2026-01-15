@@ -1,0 +1,53 @@
+<div class="p-8 max-w-[400px] flex flex-col">
+  <div class="flex justify-between">
+    <div>
+      <h2 class="text-xl font-medium mb-1">Sign In</h2>
+      <p class="text-sm text-gray-500">Sign in to your account to continue shopping</p>
+    </div>
+    <button tabindex="-1" matIconButton class="-mt-2 -mr-2" matDialogClose>
+      <mat-icon fontIcon="close" />
+    </button>
+  </div>
+  <form class="mt-4" (submit)="submitSignIn($event)">
+    <!-- Email Field -->
+    <mat-form-field class="w-full mb-4">
+      <input matInput type="email" [formField]="signInForm.email" placeholder="Enter your email" />
+      <mat-icon matPrefix fontIcon="email" />
+      @if (signInForm.email().touched() && signInForm.email().invalid()) {
+        <mat-error>
+          {{ signInForm.email().errors()[0].message }}
+        </mat-error>
+      }
+    </mat-form-field>
+    <!-- Password Field -->
+    <mat-form-field class="w-full mb-6">
+      <input
+        matInput
+        [type]="passwordVisible() ? 'text' : 'password'"
+        [formField]="signInForm.password"
+        placeholder="Enter your password"
+      />
+      <mat-icon matPrefix fontIcon="lock" />
+      <button
+        matSuffix
+        matIconButton
+        type="button"
+        class="mr-2"
+        (click)="togglePasswordVisibility()"
+      >
+        <mat-icon [fontIcon]="passwordVisible() ? 'visibility_off' : 'visibility'" />
+      </button>
+      @if (signInForm.password().touched() && signInForm.password().invalid()) {
+        <mat-error>
+          {{ signInForm.password().errors()[0].message }}
+        </mat-error>
+      }
+    </mat-form-field>
+    <button type="submit" matButton="filled" class="w-full">Sign In</button>
+  </form>
+
+  <p class="text-sm text-gray-500 mt-2 text-center">
+    Don't have an account?
+    <a class="text-blue-600 cursor-pointer" (click)="openSignUpDialog()">Sign Up</a>
+  </p>
+</div>

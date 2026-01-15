@@ -1,0 +1,7 @@
+<button
+  [class]="isInWishlist() ? '!text-red-500' : '!text-gray-400'"
+  matIconButton
+  (click)="toggleWishlist()"
+>
+  <mat-icon [fontIcon]="isInWishlist() ? 'favorite' : 'favorite_border'" />
+</button>

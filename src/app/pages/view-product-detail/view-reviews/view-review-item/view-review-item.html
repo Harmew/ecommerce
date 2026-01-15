@@ -1,0 +1,20 @@
+<div appViewPanel>
+  <div class="flex items-start gap-4">
+    <img
+      [src]="review().userImageUrl"
+      [alt]="review().userName"
+      class="w-10 h-10 rounded-full object-cover"
+    />
+
+    <div>
+      <p class="text-lg font-semibold">{{ review().userName }}</p>
+      <div class="flex items-center mb-1">
+        <app-start-rating [rating]="review().rating" />
+
+        <p class="text-sm text-gray-500">{{ review().reviewDate | date: 'MMM d, yyyy' }}</p>
+      </div>
+      <p class="text-base font-semibold mb-1">{{ review().title }}</p>
+      <p class="text-sm text-gray-500">{{ review().comment }}</p>
+    </div>
+  </div>
+</div>

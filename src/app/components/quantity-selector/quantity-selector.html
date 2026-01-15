@@ -1,0 +1,15 @@
+<div class="flex items-center gap-3">
+  <div class="inline-flex items-center">
+    <button matIconButton [disabled]="quantity() <= 1" (click)="decreaseQuantity()">
+      <mat-icon fontIcon="remove" />
+    </button>
+
+    <div class="flex items-center">
+      <span class="px-3 text-lg">{{ quantity() }}</span>
+    </div>
+
+    <button matIconButton (click)="increaseQuantity()">
+      <mat-icon fontIcon="add" />
+    </button>
+  </div>
+</div>

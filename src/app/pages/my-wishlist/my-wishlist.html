@@ -1,0 +1,30 @@
+<div class="mx-auto max-w-[1200px] py-6">
+  <app-back-button class="mb-6" label="Continue Shopping" navigateTo="/products/all" />
+
+  @if (wishlistItemsCount() > 0) {
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-gray-900">My Wishlist</h1>
+      <span class="text-gray-500 text-lg">{{ wishlistItemsCount() }} items</span>
+    </div>
+
+    <div class="responsive-grid">
+      @for (product of wishlistItems(); track product.id) {
+        <app-product-card [product]="product">
+          <button
+            class="!absolute z-10 top-3 right-3 w-10 h-10 rounded-full !bg-gray-100 border-0 shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg"
+            matIconButton
+            (click)="removeFromWishlist(product)"
+          >
+            <mat-icon fontIcon="delete" />
+          </button>
+        </app-product-card>
+      }
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <button matButton="outlined" class="danger" (click)="clearWishlist()">Clear Wishlist</button>
+    </div>
+  } @else {
+    <app-empty-wishlist />
+  }
+</div>

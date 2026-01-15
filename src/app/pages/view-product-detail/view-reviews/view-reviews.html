@@ -1,0 +1,20 @@
+<div appViewPanel>
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-lg font-semibold">Customer Reviews</h2>
+    @if (user()) {
+      <button matButton="filled" (click)="showWriteReview()">Write a Review</button>
+    }
+  </div>
+
+  @if (writeReview()) {
+    <app-write-review class="mb-6" />
+  }
+
+  <app-rating-summary [product]="product()" />
+
+  <div class="flex flex-col gap-6">
+    @for (review of sortedReviews(); track review.id) {
+      <app-view-review-item [review]="review" />
+    }
+  </div>
+</div>

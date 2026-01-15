@@ -1,0 +1,60 @@
+<div appViewPanel>
+  <h2 class="text-lg font-semibold mb-6">Write a Review</h2>
+  <form (submit)="saveReview($event)">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+      <!-- Title Field -->
+      <mat-form-field class="w-full mb-4">
+        <mat-label>Review Title</mat-label>
+        <input
+          matInput
+          [formField]="reviewForm.title"
+          placeholder="Summarize your review in a few words"
+        />
+        @if (reviewForm.title().touched() && reviewForm.title().invalid()) {
+          <mat-error>
+            {{ reviewForm.title().errors()[0].message }}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Rating Field -->
+      <mat-form-field class="w-full mb-4">
+        <mat-select [formField]="reviewForm.rating">
+          @for (options of ratingOptions(); track options.value) {
+            <mat-option [value]="options.value">
+              {{ options.label }}
+            </mat-option>
+          }
+        </mat-select>
+
+        @if (reviewForm.rating().touched() && reviewForm.rating().invalid()) {
+          <mat-error>
+            {{ reviewForm.rating().errors()[0].message }}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Comment Field -->
+      <mat-form-field class="col-span-2">
+        <mat-label>Review</mat-label>
+        <textarea
+          matInput
+          placeholder="Tell others about your experience with the product"
+          [formField]="reviewForm.comment"
+        ></textarea>
+        @if (reviewForm.comment().touched() && reviewForm.comment().invalid()) {
+          <mat-error>
+            {{ reviewForm.comment().errors()[0].message }}
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-4">
+      <button matButton="filled" type="submit" [disabled]="loadingWriteReview()">
+        {{ loadingWriteReview() ? 'Submitting...' : 'Submit Review' }}
+      </button>
+      <button matButton="outlined" type="button" (click)="hideWriteReview()">Cancel</button>
+    </div>
+  </form>
+</div>

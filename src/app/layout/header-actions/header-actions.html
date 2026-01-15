@@ -1,0 +1,42 @@
+<div class="flex items-center gap-2">
+  <button
+    matIconButton
+    routerLink="/wishlist"
+    [matBadge]="wishlistItemsCount()"
+    [matBadgeHidden]="wishlistItemsCount() === 0"
+    matBadgeColor="warn"
+    matBadgeOverlap="true"
+  >
+    <mat-icon fontIcon="favorite" />
+  </button>
+  <button
+    matIconButton
+    routerLink="/cart"
+    [matBadge]="cartItemsCount()"
+    [matBadgeHidden]="cartItemsCount() === 0"
+    matBadgeColor="warn"
+    matBadgeOverlap="true"
+  >
+    <mat-icon fontIcon="shopping_cart" />
+  </button>
+
+  @if (user(); as user) {
+    <button matIconButton [matMenuTriggerFor]="userMenu">
+      <img [src]="user.imageUrl" [alt]="user.name" class="w-8 h-8 rounded-full" />
+    </button>
+
+    <mat-menu #userMenu="matMenu" xPosition="before" panelClass="user-menu-white">
+      <div class="flex flex-col px-3 min-w-[200px]">
+        <span class="text-sm font-medium">{{ user.name }}</span>
+        <span class="text-xs text-gray-500">{{ user.email }}</span>
+      </div>
+      <mat-divider />
+      <button class="!min-h-[32px]" mat-menu-item (click)="signOut()">
+        <mat-icon fontIcon="logout" /> Sign Out
+      </button>
+    </mat-menu>
+  } @else {
+    <button matButton (click)="openSignInDialog()">Sign In</button>
+    <button matButton="filled" (click)="openSignUpDialog()">Sign Up</button>
+  }
+</div>

@@ -1,0 +1,90 @@
+<div class="p-8 max-w-[400px] flex flex-col">
+  <div class="flex justify-between">
+    <div>
+      <h2 class="text-xl font-medium mb-1">Sign Up</h2>
+      <p class="text-sm text-gray-500">Join us and start shopping today</p>
+    </div>
+    <button tabindex="-1" matIconButton class="-mt-2 -mr-2" matDialogClose>
+      <mat-icon fontIcon="close" />
+    </button>
+  </div>
+  <form class="mt-4" (submit)="submitSignUp($event)">
+    <!-- Name Field -->
+    <mat-form-field class="w-full mb-4">
+      <input matInput type="text" [formField]="signUpForm.name" placeholder="Enter your name" />
+      <mat-icon matPrefix fontIcon="person" />
+      @if (signUpForm.name().touched() && signUpForm.name().invalid()) {
+        <mat-error>
+          {{ signUpForm.name().errors()[0].message }}
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Email Field -->
+    <mat-form-field class="w-full mb-4">
+      <input matInput type="email" [formField]="signUpForm.email" placeholder="Enter your email" />
+      <mat-icon matPrefix fontIcon="email" />
+      @if (signUpForm.email().touched() && signUpForm.email().invalid()) {
+        <mat-error>
+          {{ signUpForm.email().errors()[0].message }}
+        </mat-error>
+      }
+    </mat-form-field>
+    <!-- Password Field -->
+    <mat-form-field class="w-full mb-6">
+      <input
+        matInput
+        [type]="passwordVisible() ? 'text' : 'password'"
+        [formField]="signUpForm.password"
+        placeholder="Enter your password"
+      />
+      <mat-icon matPrefix fontIcon="lock" />
+      <button
+        matSuffix
+        matIconButton
+        type="button"
+        class="mr-2"
+        (click)="togglePasswordVisibility()"
+      >
+        <mat-icon [fontIcon]="passwordVisible() ? 'visibility_off' : 'visibility'" />
+      </button>
+      @if (signUpForm.password().touched() && signUpForm.password().invalid()) {
+        <mat-error>
+          {{ signUpForm.password().errors()[0].message }}
+        </mat-error>
+      }
+    </mat-form-field>
+    <!-- Confirm Password Field -->
+    <mat-form-field class="w-full mb-6">
+      <input
+        matInput
+        [type]="confirmPasswordVisible() ? 'text' : 'password'"
+        [formField]="signUpForm.confirmPassword"
+        placeholder="Confirm your password"
+      />
+      <mat-icon matPrefix fontIcon="lock" />
+      <button
+        matSuffix
+        matIconButton
+        type="button"
+        class="mr-2"
+        (click)="toggleConfirmPasswordVisibility()"
+      >
+        <mat-icon [fontIcon]="confirmPasswordVisible() ? 'visibility_off' : 'visibility'" />
+      </button>
+      @if (signUpForm.confirmPassword().touched() && signUpForm.confirmPassword().invalid()) {
+        <mat-error>
+          {{ signUpForm.confirmPassword().errors()[0].message }}
+        </mat-error>
+      }
+    </mat-form-field>
+    <button type="submit" matButton="filled" class="w-full" [disabled]="loadingSignUp()">
+      {{ loadingSignUp() ? 'Creating Account...' : 'Create Account' }}
+    </button>
+  </form>
+
+  <p class="text-sm text-gray-500 mt-2 text-center">
+    Already have an account?
+    <a class="text-blue-600 cursor-pointer" (click)="openSignInDialog()">Sign In</a>
+  </p>
+</div>

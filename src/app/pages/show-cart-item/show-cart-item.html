@@ -1,0 +1,33 @@
+<div class="grid grid-cols-3 grid-cols-[3fr_1fr_1fr]">
+  <div class="flex items-center gap-4">
+    <img
+      [src]="item().product.imageUrl"
+      [alt]="item().product.name"
+      class="w-24 h-24 object-cover rounded-lg"
+      [style.view-transition-name]="'product-image-' + item().product.id"
+    />
+    <div>
+      <p class="text-gray-900 text-lg font-semibold">{{ item().product.name }}</p>
+      <p class="text-gray-600 text-lg">{{ item().product.price | currency }}</p>
+    </div>
+  </div>
+
+  <app-quantity-selector
+    [quantity]="item().quantity"
+    (quantity_updated)="setItemQuantity($event)"
+  />
+
+  <div class="flex flex-col items-end">
+    <p class="text-right font-semibold text-lg">
+      {{ total() | currency }}
+    </p>
+    <div class="flex -me-3">
+      <button matIconButton (click)="moveToWishlist()">
+        <mat-icon fontIcon="favorite_border" />
+      </button>
+      <button matIconButton class="danger" (click)="removeFromCart()">
+        <mat-icon fontIcon="delete" />
+      </button>
+    </div>
+  </div>
+</div>
