@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-[1200px] py-6">
+<div class="mx-auto max-w-300 py-6">
   <app-back-button class="mb-6" label="Continue Shopping" navigateTo="/products/all" />
 
   @if (wishlistItemsCount() > 0) {
@@ -11,7 +11,7 @@
       @for (product of wishlistItems(); track product.id) {
         <app-product-card [product]="product">
           <button
-            class="!absolute z-10 top-3 right-3 w-10 h-10 rounded-full !bg-gray-100 border-0 shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg"
+            class="absolute! z-10 top-3 right-3 w-10 h-10 rounded-full bg-gray-100! border-0 shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg"
             matIconButton
             (click)="removeFromWishlist(product)"
           >

@@ -15,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 // Store
 import { Ecommerce } from '../../store/ecommerce';
 
+// Services
+import { SeoManager } from '../../services/seo-manager';
+
 @Component({
   selector: 'app-my-wishlist',
   imports: [BackButton, ProductCard, EmptyWishlist, MatButtonModule, MatIconModule],
@@ -22,6 +25,7 @@ import { Ecommerce } from '../../store/ecommerce';
 })
 export class MyWishlist {
   private readonly _store = inject(Ecommerce);
+  private readonly _seoManager = inject(SeoManager);
 
   protected readonly wishlistItemsCount = this._store.wishlistItemsCount;
   protected readonly wishlistItems = this._store.wishlistItems;
@@ -32,5 +36,12 @@ export class MyWishlist {
 
   protected clearWishlist(): void {
     this._store.clearWishlist();
+  }
+
+  constructor() {
+    this._seoManager.updateSeoTags({
+      title: 'My Wishlist',
+      description: 'View your wishlist items.',
+    });
   }
 }

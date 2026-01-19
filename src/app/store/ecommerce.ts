@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 // Services
 import { Toaster } from '../services/toaster';
+import { SeoManager } from '../services/seo-manager';
 
 // Helpers
 import { withLocalStorage } from '../helpers/withLocalStorage';
@@ -34,6 +35,7 @@ export class Ecommerce {
   private readonly _toaster = inject(Toaster);
   private readonly _dialog = inject(MatDialog);
   private readonly _router = inject(Router);
+  private readonly _seoManager = inject(SeoManager);
 
   // Initial State
   private readonly _products = signal<Product[]>(MOCK_PRODUCTS);
@@ -264,5 +266,26 @@ export class Ecommerce {
     this._loadingWriteReview.set(false);
     this._writeReview.set(false);
     this._toaster.show('Review added successfully!');
+  }
+
+  public setProductsListSeoTags(category: string) {
+    const categoryName = category ? category.charAt(0).toUpperCase() + category.slice(1) : 'All';
+    const description = category
+      ? `Browse our selection of ${categoryName} products.`
+      : 'Browse our selection of products.';
+    this._seoManager.updateSeoTags({
+      title: categoryName,
+      description,
+    });
+  }
+
+  public setProductSeoTags(product: Product | null) {
+    if (!product) return;
+    this._seoManager.updateSeoTags({
+      title: product.name,
+      description: product.description,
+      image: product.imageUrl,
+      type: 'product',
+    });
   }
 }

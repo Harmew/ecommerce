@@ -23,6 +23,7 @@ export class ViewProductDetail {
 
   constructor() {
     effect(() => {
+      this._store.setProductSeoTags(this._store.selectedProduct());
       this._store.setProductId(this.productId());
     });
   }
